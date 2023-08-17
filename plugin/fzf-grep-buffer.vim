@@ -6,13 +6,13 @@ vim9script
 import 'fzf-run.vim' as Fzf
 
 var spec = {
-  'fzf_default_command': $FZF_DEFAULT_COMMAND,
-
-  'set_fzf_data': ( ) => expand('%:p')->filereadable() ? $"rg --color=ansi --line-number . {expand('%:p')}" : 'echo -n',
-
-  'set_fzf_command': (data) => $"{data} || exit 0",
+  'set_fzf_data': (data) =>
+    expand('%:p')->filereadable()
+      ? systemlist($"rg --color=ansi --line-number . {expand('%:p')}")->writefile(data)
+      : systemlist('echo -n')->writefile(data),
 
   'set_tmp_file': ( ) => tempname(),
+  'set_tmp_data': ( ) => tempname(),
 
   'geometry': {
     'width': 0.8,
@@ -30,13 +30,14 @@ var spec = {
     '--preview-window=border-left:+{1}-/2',
     '--nth=2',
     '--ansi',
-    '--bind=alt-j:preview-down,alt-k:preview-up',
+    '--bind=alt-j:preview-down,alt-k:preview-up,alt-p:toggle-preview',
     '--expect=enter'
   ],
 
-  'set_term_command_options': ( ) =>
+  'set_term_command_options': (data) =>
     [
-      $'--preview=bat --color=always --style=numbers --highlight-line={{1}} {expand("%:p")}'
+      $'--preview=bat --color=always --style=numbers --highlight-line={{1}} {expand("%:p")}',
+      $"--bind=start:reload^cat '{data}'^",
     ],
 
   'term_options': {
