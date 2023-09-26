@@ -28,7 +28,7 @@ var spec = {
     '--no-multi',
     '--delimiter=:',
     '--preview-window=border-left:+{1}-/2',
-    '--nth=2',
+    '--nth=2..',
     '--ansi',
     '--bind=alt-j:preview-down,alt-k:preview-up,alt-p:toggle-preview',
     '--expect=enter'
