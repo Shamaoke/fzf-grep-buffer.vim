@@ -27,10 +27,11 @@ var spec = {
     'fzf',
     '--no-multi',
     '--delimiter=:',
+    '--preview-window=right,50%',
     '--preview-window=border-left:+{1}-/2',
     '--nth=2..',
     '--ansi',
-    '--bind=alt-j:preview-down,alt-k:preview-up,alt-p:toggle-preview',
+    '--bind=alt-j:preview-down,alt-k:preview-up,alt-p:toggle-preview,alt-e:change-preview-window(right,90%|right,50%)',
     '--expect=enter'
   ],
 
